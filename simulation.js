@@ -25,10 +25,6 @@ function setup() {
     createP('Recycling Rate').position(10, 40);
     recyclingSlider = createSlider(0, 100, recyclingRate);
     recyclingSlider.position(150, 40);
-
-    createP('Animal Population').position(500, 10);
-    animalSlider = createSlider(0, 100, animalPopulation);
-    animalSlider.position(640, 10);
 }
 
 function draw() {
@@ -37,12 +33,11 @@ function draw() {
     // Update slider values
     treeGrowthRate = treeSlider.value();
     recyclingRate = recyclingSlider.value();
-    animalPopulation = animalSlider.value();
 
     // Adjust pollution based on tree growth rate and recycling rate
     adjustPollution(treeGrowthRate, recyclingRate);
 
-    // Adjust tree and animal positions
+    // Adjust tree and animal positions based on ecosystem dynamics
     adjustEcosystem();
 
     // Draw elements of the ecosystem
@@ -88,13 +83,14 @@ function adjustEcosystem() {
         treePositions.splice(treeGrowthRate);
     }
 
-    // Adjust animal positions based on animal population
-    if (animalPositions.length < animalPopulation) {
-        for (let i = 0; i < animalPopulation - animalPositions.length; i++) {
+    // Adjust animal population based on tree growth rate
+    let targetAnimalPopulation = Math.floor(treeGrowthRate * recyclingRate / 100);
+    if (animalPositions.length < targetAnimalPopulation) {
+        for (let i = 0; i < targetAnimalPopulation - animalPositions.length; i++) {
             animalPositions.push(createVector(random(200, width), random(100, height)));
         }
-    } else if (animalPositions.length > animalPopulation) {
-        animalPositions.splice(animalPopulation);
+    } else if (animalPositions.length > targetAnimalPopulation) {
+        animalPositions.splice(targetAnimalPopulation);
     }
 
     // Move animals slightly for animation
