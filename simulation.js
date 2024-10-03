@@ -65,14 +65,14 @@ function drawTrees() {
 }
 
 function drawAnimals() {
-    fill(139, 69, 19); // Set animal color to brown
+    fill(181, 101, 29); // Lighter brown for animals
     for (let pos of animalPositions) {
         ellipse(pos.x, pos.y, 10, 10);
     }
 }
 
 function drawPlasticRemains() {
-    fill(0, 0, 255); // Blue color for plastic remains
+    fill(169, 169, 169); // Gray color for plastic remains
     for (let pos of plasticPositions) {
         rect(pos.x, pos.y, 10, 5); // Draw plastic remains as small rectangles
     }
@@ -128,7 +128,8 @@ function adjustPlasticRemains() {
     let targetPlasticCount = Math.floor((100 - recyclingRate) / 2);
     if (plasticPositions.length < targetPlasticCount) {
         for (let i = 0; i < targetPlasticCount - plasticPositions.length; i++) {
-            plasticPositions.push(createVector(random(0, width), random(0, height)));
+            // Generate plastic remains only in the region where trees are also generated
+            plasticPositions.push(createVector(random(200, width), random(100, height)));
         }
     } else if (plasticPositions.length > targetPlasticCount) {
         plasticPositions.splice(targetPlasticCount);
@@ -136,7 +137,7 @@ function adjustPlasticRemains() {
 }
 
 function drawSmiley() {
-    let faceCenter = createVector(60, 300);
+    let faceCenter = createVector(60, 270);
     let faceRadius = 30;
 
     let faceColor;
@@ -180,13 +181,13 @@ function drawSmiley() {
 function drawProgressBars() {
     // Pollution progress bar
     fill(0);
-    text('Pollution Level', 10, 110);
+    text('Pollution Level', 10, 90);
     fill(255, 0, 0);
-    rect(150, 95, pollution * 2, 20); // Pollution level bar (max width 200)
+    rect(150, 75, pollution * 2, 20); // Pollution level bar (max width 200)
 
     // Animal population progress bar
     fill(0);
-    text('Animal Population', 10, 150);
-    fill(139, 69, 19); // Set animal population bar color to brown
-    rect(150, 135, animalPositions.length * 2, 20); // Animal population bar (max width 200)
+    text('Animal Population', 10, 130);
+    fill(181, 101, 29); // Set animal population bar color to lighter brown
+    rect(150, 115, animalPositions.length * 2, 20); // Animal population bar (max width 200)
 }
