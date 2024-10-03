@@ -187,7 +187,7 @@ function drawProgressBars() {
 
     // Animal population progress bar
     fill(0);
-    text('Animal Population', 10, 90);
+    text('Animal Population', 10, 85);
     fill(181, 101, 29); // Set animal population bar color to lighter brown
     rect(150, 65, animalPositions.length * 2, 20); // Animal population bar (max width 200)
 }
