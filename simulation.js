@@ -17,7 +17,7 @@ function setup() {
         animalPositions.push(createVector(random(200, width), random(100, height)));
     }
 
-    // Create sliders
+    // Create sliders for Tree Growth Rate and Recycling Rate
     createP('Tree Growth Rate').position(10, 10);
     treeSlider = createSlider(0, 100, treeGrowthRate);
     treeSlider.position(150, 10);
@@ -45,6 +45,7 @@ function draw() {
     drawAnimals();
     drawPollutionOverlay();
     drawSmiley();
+    drawProgressBars(); // Draw progress bars for pollution and animal population
 }
 
 function drawTrees() {
@@ -83,7 +84,7 @@ function adjustEcosystem() {
         treePositions.splice(treeGrowthRate);
     }
 
-    // Adjust animal population based on tree growth rate
+    // Adjust animal population based on tree growth rate and recycling rate
     let targetAnimalPopulation = Math.floor(treeGrowthRate * recyclingRate / 100);
     if (animalPositions.length < targetAnimalPopulation) {
         for (let i = 0; i < targetAnimalPopulation - animalPositions.length; i++) {
@@ -152,4 +153,18 @@ function drawSmiley() {
     } else {
         arc(faceCenter.x, faceCenter.y + 15, 30, 20, PI, 0); // Very sad
     }
+}
+
+function drawProgressBars() {
+    // Pollution progress bar
+    fill(0);
+    text('Pollution Level', 10, 90);
+    fill(255, 0, 0);
+    rect(150, 75, pollution * 2, 20); // Pollution level bar (max width 200)
+
+    // Animal population progress bar
+    fill(0);
+    text('Animal Population', 10, 130);
+    fill(0, 0, 255);
+    rect(150, 115, animalPositions.length * 2, 20); // Animal population bar (max width 200)
 }
