@@ -77,7 +77,7 @@ function drawAnimals() {
 }
 
 function drawPlasticRemains() {
-    fill(169, 169, 169); // Gray color for plastic remains
+    fill(0, 0, 255); // Blue color for plastic remains
     for (let pos of plasticPositions) {
         rect(pos.x, pos.y, 10, 5); // Draw plastic remains as small rectangles
     }
