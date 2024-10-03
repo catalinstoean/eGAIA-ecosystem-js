@@ -2,6 +2,7 @@ let treeGrowthRate = 50;
 let recyclingRate = 50;
 let animalPopulation = 50;
 let pollution = 50;
+let targetAnimalPopulation = 50;
 
 let treePositions = [];
 let animalPositions = [];
@@ -38,9 +39,13 @@ function draw() {
     // Adjust pollution based on tree growth rate and recycling rate
     adjustPollution(treeGrowthRate, recyclingRate);
 
+    // Set target animal population based on tree growth and recycling rates
+    targetAnimalPopulation = Math.floor(treeGrowthRate * recyclingRate / 100);
+
     // Adjust tree, animal positions, and plastic remains based on ecosystem dynamics
     adjustEcosystem();
     adjustPlasticRemains();
+    adjustAnimalPopulation();
 
     // Draw elements of the ecosystem
     drawTrees();
@@ -72,7 +77,7 @@ function drawAnimals() {
 }
 
 function drawPlasticRemains() {
-    fill(0, 0, 256); // Blue color for plastic remains
+    fill(169, 169, 169); // Gray color for plastic remains
     for (let pos of plasticPositions) {
         rect(pos.x, pos.y, 10, 5); // Draw plastic remains as small rectangles
     }
@@ -92,16 +97,6 @@ function adjustEcosystem() {
         }
     } else if (treePositions.length > treeGrowthRate) {
         treePositions.splice(treeGrowthRate);
-    }
-
-    // Adjust animal population based on tree growth rate and recycling rate
-    let targetAnimalPopulation = Math.floor(treeGrowthRate * recyclingRate / 100);
-    if (animalPositions.length < targetAnimalPopulation) {
-        for (let i = 0; i < targetAnimalPopulation - animalPositions.length; i++) {
-            animalPositions.push(createVector(random(200, width), random(100, height)));
-        }
-    } else if (animalPositions.length > targetAnimalPopulation) {
-        animalPositions.splice(targetAnimalPopulation);
     }
 
     // Move animals slightly for animation
@@ -133,6 +128,17 @@ function adjustPlasticRemains() {
         }
     } else if (plasticPositions.length > targetPlasticCount) {
         plasticPositions.splice(targetPlasticCount);
+    }
+}
+
+function adjustAnimalPopulation() {
+    // Gradually adjust the animal population towards the target value
+    if (animalPopulation < targetAnimalPopulation) {
+        animalPopulation += 0.5; // Increase slowly
+        animalPositions.push(createVector(random(200, width), random(100, height)));
+    } else if (animalPopulation > targetAnimalPopulation) {
+        animalPopulation -= 0.5; // Decrease slowly
+        animalPositions.pop();
     }
 }
 
@@ -189,5 +195,5 @@ function drawProgressBars() {
     fill(0);
     text('Animal Population', 10, 85);
     fill(181, 101, 29); // Set animal population bar color to lighter brown
-    rect(150, 65, animalPositions.length * 2, 20); // Animal population bar (max width 200)
+    rect(150, 65, animalPopulation * 2, 20); // Animal population bar (max width 200)
 }
