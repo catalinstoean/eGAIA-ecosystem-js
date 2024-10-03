@@ -160,11 +160,11 @@ function drawProgressBars() {
     fill(0);
     text('Pollution Level', 10, 150);
     fill(255, 0, 0);
-    rect(150, 135, pollution * 2, 20); // Pollution level bar (max width 200)
+    rect(150, 35, pollution * 2, 20); // Pollution level bar (max width 200)
 
     // Animal population progress bar
     fill(0);
     text('Animal Population', 10, 190);
     fill(0, 0, 255);
-    rect(150, 175, animalPositions.length * 2, 20); // Animal population bar (max width 200)
+    rect(150, 75, animalPositions.length * 2, 20); // Animal population bar (max width 200)
 }
