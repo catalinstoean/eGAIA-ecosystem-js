@@ -5,6 +5,7 @@ let pollution = 50;
 
 let treePositions = [];
 let animalPositions = [];
+let plasticPositions = [];
 
 function setup() {
     createCanvas(800, 600);
@@ -37,12 +38,14 @@ function draw() {
     // Adjust pollution based on tree growth rate and recycling rate
     adjustPollution(treeGrowthRate, recyclingRate);
 
-    // Adjust tree and animal positions based on ecosystem dynamics
+    // Adjust tree, animal positions, and plastic remains based on ecosystem dynamics
     adjustEcosystem();
+    adjustPlasticRemains();
 
     // Draw elements of the ecosystem
     drawTrees();
     drawAnimals();
+    drawPlasticRemains();
     drawPollutionOverlay();
     drawSmiley();
     drawProgressBars(); // Draw progress bars for pollution and animal population
@@ -65,6 +68,13 @@ function drawAnimals() {
     fill(139, 69, 19); // Set animal color to brown
     for (let pos of animalPositions) {
         ellipse(pos.x, pos.y, 10, 10);
+    }
+}
+
+function drawPlasticRemains() {
+    fill(0, 0, 255); // Blue color for plastic remains
+    for (let pos of plasticPositions) {
+        rect(pos.x, pos.y, 10, 5); // Draw plastic remains as small rectangles
     }
 }
 
@@ -110,6 +120,18 @@ function adjustPollution(treeGrowthRate, recyclingRate) {
         pollution = min(100, pollution + 0.2); // One is low, pollution increases slowly
     } else {
         pollution = max(0, pollution - 0.2); // Otherwise, pollution decreases slowly
+    }
+}
+
+function adjustPlasticRemains() {
+    // Adjust plastic remains based on recycling rate
+    let targetPlasticCount = Math.floor((100 - recyclingRate) / 2);
+    if (plasticPositions.length < targetPlasticCount) {
+        for (let i = 0; i < targetPlasticCount - plasticPositions.length; i++) {
+            plasticPositions.push(createVector(random(0, width), random(0, height)));
+        }
+    } else if (plasticPositions.length > targetPlasticCount) {
+        plasticPositions.splice(targetPlasticCount);
     }
 }
 
