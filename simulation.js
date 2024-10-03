@@ -22,9 +22,9 @@ function setup() {
     treeSlider = createSlider(0, 100, treeGrowthRate);
     treeSlider.position(150, 10);
     
-    createP('Recycling Rate').position(10, 40);
+    createP('Recycling Rate').position(10, 60);
     recyclingSlider = createSlider(0, 100, recyclingRate);
-    recyclingSlider.position(150, 40);
+    recyclingSlider.position(150, 60);
 }
 
 function draw() {
@@ -114,7 +114,7 @@ function adjustPollution(treeGrowthRate, recyclingRate) {
 }
 
 function drawSmiley() {
-    let faceCenter = createVector(60, 250);
+    let faceCenter = createVector(60, 350);
     let faceRadius = 30;
 
     let faceColor;
@@ -158,13 +158,13 @@ function drawSmiley() {
 function drawProgressBars() {
     // Pollution progress bar
     fill(0);
-    text('Pollution Level', 10, 90);
+    text('Pollution Level', 10, 150);
     fill(255, 0, 0);
-    rect(350, 75, pollution * 2, 20); // Pollution level bar (max width 200)
+    rect(150, 135, pollution * 2, 20); // Pollution level bar (max width 200)
 
     // Animal population progress bar
     fill(0);
-    text('Animal Population', 10, 130);
+    text('Animal Population', 10, 190);
     fill(0, 0, 255);
-    rect(350, 115, animalPositions.length * 2, 20); // Animal population bar (max width 200)
+    rect(150, 175, animalPositions.length * 2, 20); // Animal population bar (max width 200)
 }
