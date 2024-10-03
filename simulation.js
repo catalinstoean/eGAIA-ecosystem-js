@@ -181,13 +181,13 @@ function drawSmiley() {
 function drawProgressBars() {
     // Pollution progress bar
     fill(0);
-    text('Pollution Level', 10, 90);
+    text('Pollution Level', 10, 30);
     fill(255, 0, 0);
-    rect(150, 75, pollution * 2, 20); // Pollution level bar (max width 200)
+    rect(150, 25, pollution * 2, 20); // Pollution level bar (max width 200)
 
     // Animal population progress bar
     fill(0);
-    text('Animal Population', 10, 130);
-    fill(181, 21, 29); // Set animal population bar color to lighter brown
-    rect(150, 35, animalPositions.length * 2, 20); // Animal population bar (max width 200)
+    text('Animal Population', 10, 70);
+    fill(181, 101, 29); // Set animal population bar color to lighter brown
+    rect(150, 65, animalPositions.length * 2, 20); // Animal population bar (max width 200)
 }
